@@ -5,7 +5,8 @@ function getNumbers() {
   });
 }
 
-getNumbers()
+setTimeout(() => {
+	getNumbers()
   .then((numbers) => {
     // First promise: filter out odd numbers after 1 second
     return new Promise((resolve, reject) => {
@@ -27,3 +28,5 @@ getNumbers()
     });
   })
   .catch((err) => console.error(err));
+
+}, 3000)
