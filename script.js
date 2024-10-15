@@ -3,7 +3,7 @@ function getNumbers() {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([1, 2, 3, 4]); // Initial array
-    }, 3000); // Delay 3 seconds before resolving
+    }, 100); // Reduced to 100ms to trigger sooner for testing purposes
   });
 }
 
@@ -12,9 +12,9 @@ function filterEvenNumbers(numbers) {
   return new Promise((resolve) => {
     setTimeout(() => {
       const evenNumbers = numbers.filter((num) => num % 2 === 0); // Filter even numbers
-      document.getElementById("output").textContent = "Filtered Even Numbers: " + evenNumbers.join(", ");
+      document.getElementById("output").textContent = evenNumbers.join(", ");
       resolve(evenNumbers); // Pass the even numbers to the next chain
-    }, 1000); // Delay 1 second for filtering
+    }, 1000); // 1 second delay for filtering
   });
 }
 
@@ -23,15 +23,15 @@ function multiplyEvenNumbers(numbers) {
   return new Promise((resolve) => {
     setTimeout(() => {
       const multipliedNumbers = numbers.map((num) => num * 2); // Multiply even numbers by 2
-      document.getElementById("output").textContent = "Multiplied Numbers: " + multipliedNumbers.join(", ");
+      document.getElementById("output").textContent = multipliedNumbers.join(", ");
       resolve(multipliedNumbers); // Final result
-    }, 2000); // Delay 2 seconds for multiplication
+    }, 2000); // 2 second delay for multiplication
   });
 }
 
 // Chaining the promises
 getNumbers()
-  .then(filterEvenNumbers) // After 3 seconds, filter even numbers
+  .then(filterEvenNumbers) // After 100ms, filter even numbers
   .then(multiplyEvenNumbers) // After 1 second, multiply even numbers by 2
   .catch((error) => {
     console.error("An error occurred:", error); // Handle any errors
