@@ -1,11 +1,13 @@
 function getNumbers() {
   // Returns a promise that resolves with an array of numbers
   return new Promise((resolve, reject) => {
-    resolve([1, 2, 3, 4]);
+	  setTimeout(() => {
+		  resolve([1, 2, 3, 4]);
+	  }, 3000)
   });
 }
 
-setTimeout(() => {
+
 	getNumbers()
   .then((numbers) => {
     // First promise: filter out odd numbers after 1 second
@@ -29,4 +31,4 @@ setTimeout(() => {
   })
   .catch((err) => console.error(err));
 
-}, 3000)
+
