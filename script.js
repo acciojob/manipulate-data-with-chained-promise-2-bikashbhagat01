@@ -1,40 +1,29 @@
-const outputDiv = document.getElementById('output');
-
-function filterOddNumbers(numbers) {
+function getNumbers() {
+  // Returns a promise that resolves with an array of numbers
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const evenNumbers = numbers.filter(num => num % 2 === 0);
-      outputDiv.innerText = evenNumbers.join(', ');
-      resolve(evenNumbers);
-    }, 1000);
+    resolve([1, 2, 3, 4]);
   });
 }
 
-function multiplyEvenNumbers(numbers) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const multipliedNumbers = numbers.map(num => num * 2);
-      outputDiv.innerText = multipliedNumbers.join(', ');
-      resolve(multipliedNumbers);
-    }, 2000);
-  });
-}
-
-function processNumbers() {
-  return new Promise((resolve, reject) => {
-    const numbers = [1, 2, 3, 4];
-    filterOddNumbers(numbers)
-      .then(evenNumbers => multiplyEvenNumbers(evenNumbers))
-      .then(result => {
-        resolve(result);
-      })
-      .catch(error => reject(error));
-  });
-}
-
-processNumbers()
-  .then(finalResult => {
-    // The final result [4, 8] is available here after 3 seconds
-    console.log('Final result:', finalResult);
+getNumbers()
+  .then((numbers) => {
+    // First promise: filter out odd numbers after 1 second
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const evenNumbers = numbers.filter((num) => num % 2 === 0);
+        document.getElementById('output').textContent = evenNumbers.join(', ');
+        resolve(evenNumbers);
+      }, 1000); // Delay of 1 second
+    });
   })
-  .catch(error => console.error(error));
+  .then((evenNumbers) => {
+    // Second promise: multiply even numbers by 2 after 2 seconds
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const multipliedNumbers = evenNumbers.map((num) => num * 2);
+        document.getElementById('output').textContent = multipliedNumbers.join(', ');
+        resolve(multipliedNumbers);
+      }, 2000); // Delay of 2 seconds
+    });
+  })
+  .catch((err) => console.error(err));
